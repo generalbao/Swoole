@@ -1,0 +1,60 @@
+2016年12月6日23:17:36
+www.swoole.com下载源码,或者git
+cd /usr/local 
+mkdir swoole
+sudo wget xxxxx       or git clone xxxx
+
+phpize编译
+xxx/php/bin/phpize
+
+./configure --with-php-config=/xxxx/php/bin/php-config
+
+!!!!!!!!! ubuntu编译或安装软件权限很重要 不然随时都会报错
+
+php.ini加入  extension=swoole.so       重启php-fpm 重启apache或者nginx
+
+swooleTest.php
+
+下面贴一个基本的基于swoole的echo服务器
+
+// Server
+class Server
+{
+    private $serv;
+
+    public function __construct() {
+        $this->serv = new swoole_server("0.0.0.0", 9501);
+        $this->serv->set(array(
+            'worker_num' => 8,
+            'daemonize' => false,
+            'max_request' => 10000,
+            'dispatch_mode' => 2,
+            'debug_mode'=> 1
+        ));
+
+        $this->serv->on('Start', array($this, 'onStart'));
+        $this->serv->on('Connect', array($this, 'onConnect'));
+        $this->serv->on('Receive', array($this, 'onReceive'));
+        $this->serv->on('Close', array($this, 'onClose'));
+
+        $this->serv->start();
+    }
+
+    public function onStart( $serv ) {
+        echo "Start\n";
+    }
+
+    public function onConnect( $serv, $fd, $from_id ) {
+        $serv->send( $fd, "Hello {$fd}!" );
+    }
+
+    public function onReceive( swoole_server $serv, $fd, $from_id, $data ) {
+        echo "Get Message From Client {$fd}:{$data}\n";
+    }
+
+    public function onClose( $serv, $fd, $from_id ) {
+        echo "Client {$fd} close connection\n";
+    }
+}
+// 启动服务器
+$server = new Server();
