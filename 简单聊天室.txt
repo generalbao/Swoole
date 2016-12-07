@@ -1,0 +1,86 @@
+2016年12月7日22:12:37
+
+
+1111 js前段代码
+// 创建一个Socket实例
+var socket = new WebSocket('ws://localhost:8080'); 
+
+// 打开Socket 
+socket.onopen = function(event) { 
+
+  // 发送一个初始化消息
+  socket.send('I am the client and I\'m listening!'); 
+
+  // 监听消息
+  socket.onmessage = function(data) { 
+    console.log('Client received a message',data); 
+  }; 
+
+  // 监听Socket的关闭
+  socket.onclose = function(event) { 
+    console.log('Client notified socket has closed',event); 
+  }; 
+
+  // 关闭Socket.... 
+  //socket.close() 
+};
+
+后台php代码
+
+$server = new swoole_websocket_server("0.0.0.0", 9501);
+
+//当客户端连接服务器触发
+$server->on('open', function (swoole_websocket_server $server, $request) {
+    echo "server: handshake success with fd{$request->fd}\n";
+    
+    //把所有连接的客户端数量保存起来,方便以后群发
+    file_put_content('id.txt',$request->fd);
+});
+
+//当客户端有消息传给服务器触发
+$server->on('message', function (swoole_websocket_server $server, $frame) {
+    echo "receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}\n";
+    $server->push($frame->fd, "this is server");           // 服务器给客户端发消息
+    
+    //如果是群聊的话 可以用文档保存fd,然后循环发送给所有连接的客户端
+    //$frame->fd 的值是 int值,只要有新的连接就会加 1,开始是1 代表当前连接ID
+    
+    $length = file_get_content('id.txt');
+    
+    for($i=1;$i<=$length;$i++){
+    $server->push($i,$frame->data);
+    
+    }
+    
+    
+    
+    
+});
+
+
+//断开触发
+$server->on('close', function ($ser, $fd) {
+    echo "client {$fd} closed\n";
+});
+
+$server->start();
+
+
+3333 详解-----
+
+$server->send($fd,$data,$opcode)         //服务器向客户端发送
+$fd 客户端连接的ID，如果指定的$fd对应的TCP连接并非websocket客户端，将会发送失败
+$data 要发送的数据内容
+$opcode，指定发送数据内容的格式，默认为文本。发送二进制内容$opcode参数需要设置为WEBSOCKET_OPCODE_BINARY_FRAME
+发送成功返回true，发送失败返回false
+
+
+
+swoole_websocket_frame
+共有4个属性，分别是
+
+$frame->fd，客户端的socket id，使用$server->push推送数据时需要用到
+$frame->data，数据内容，可以是文本内容也可以是二进制数据，可以通过opcode的值来判断
+$frame->opcode，WebSocket的OpCode类型，可以参考WebSocket协议标准文档
+$frame->finish， 表示数据帧是否完整，一个WebSocket请求可能会分成多个数据帧进行发送
+$data 如果是文本类型，编码格式必然是UTF-8，这是WebSocket协议规定的
