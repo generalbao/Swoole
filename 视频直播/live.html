@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>GetUserMedia实例</title>
+</head>
+<body>
+    <video id="video" autoplay></video>
+
+     <canvas id="output" style="display:none"></canvas>
+
+      <img id="receiver" style="width:320px;height:240px"/>
+
+
+</body>
+
+
+<script type="text/javascript">
+   var video = document.getElementById('video');
+  $url = 'xxxx';
+ var sk = new WebSocket("ws://"+$url);
+
+    sk.onmessage = function(frame){
+            // video.src = window.URL.createObjectURL(frame.data);
+
+            var c = document.getElementById('receiver')
+            console.log(frame.data);
+
+            c.src = frame.data;
+    }
+
+
+      
+
+</script>
+
+<div id='content'></div>
+</html>
