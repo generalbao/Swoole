@@ -1,0 +1,10 @@
+2017年1月17日17:57:01
+
+$ws = new swoole_websocket_server("xxx", 9501);
+
+
+$ws->set(array(
+    'worker_num' => 4,    //worker process num
+    'backlog' => 128,   //listen backlog    
+    'daemonize' => 1  以守护进程运行
+));
