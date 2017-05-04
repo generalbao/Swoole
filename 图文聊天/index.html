@@ -1,0 +1,56 @@
+<html>
+   <head>
+   <meta charset="utf-8">
+   <title>baoge聊天室</title>
+  <script src="js/jquery.js"></script>
+      <script type="text/javascript" src="js/index.js">      
+      </script>
+
+      <link rel="stylesheet" type="text/css" href="css/index.css">
+    
+   </head>
+   <body>
+   
+   <input type="file" name="img" id="img">
+   <button id="chgImg">修改头像</button>
+      <div id="sse">
+       <div id="mytoken" style="display:none"></div>
+       <div id="myid" style="display:none"></div>
+      <input type="text" name="name" id="name">
+      <button id="register">注册</button>
+      <div id="myself"></div>
+      <br>
+      <br>
+      <!-- 发送聊天内容:<input type="text" name="chatData" id="chatData"> -->
+      <div >
+       在线的人:<br/>
+       <div id="online" style="float: left">
+       </div>
+       
+       <!-- 右边聊天部分begin -->
+       <div id="chatbox" style="float: right;">
+       
+       <div id="friendName" class="friendName">
+       </div>
+       
+       <div id="message" class="message">
+       </div>
+       
+       <!-- 发送图片文字 -->
+       <div class="actionArea">
+       <input type="text" name="chatData" id="chatData">
+       <button onclick="sendOne()">发送</button>
+       <input type="file" name="sendFile" id="sendFile">
+       <button onclick="sendFile()">发送图片</button>
+       </div>
+       <!-- 发送图片文字 -->
+       </div>
+       <!-- 右边聊天部分结束 -->
+      
+      </div>
+
+      
+      </div>
+      
+   </body>
+</html>

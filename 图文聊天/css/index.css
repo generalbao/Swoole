@@ -1,0 +1,101 @@
+.other{
+	clear: both;
+	font-size: 20px;
+	float: left;
+}
+
+.other .chatImg{
+	clear: both;
+   float: left;
+}
+
+.self{
+	clear: both;
+	font-size: 20px;
+	padding: 1%;
+	float: right;
+}
+
+.self .chatImg{
+	clear: both;
+   float: right;
+}
+
+.friendName{
+	font-weight: bold;
+}
+
+.message{
+	background-color: rgb(131,175,155);
+	width:1000px;
+	height: 700px;
+	overflow: auto;
+	margin-right: 100px;
+}
+
+.chatImg{
+	padding: 1%;
+}
+.chatImg img{
+	  overflow: hidden;
+      width:400px;
+	  height: 400px;
+}
+
+.actionArea{
+   padding: 20px;
+   clear: both;
+   display: block;
+}
+
+
+.onlineLeft{
+	clear: both;
+	float: left;
+
+}
+
+.onlineRight{
+	padding: 10px;
+	float: right;
+}
+/*.onlineRigth{
+	clear: both;
+	float: right;
+	display: block;
+}*/
+
+.onlineLeft img{
+	width:70px;
+	height:70px; 
+	border-radius: 100%;
+}
+
+#online button{
+	clear: both;
+	float: left;
+    margin-bottom: 5%;
+    color: #666;
+  background-color: #EEE;
+  border-color: #EEE;
+  font-weight: 300;
+  font-size: 16px;
+  font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  text-decoration: none;
+  text-align: center;
+  line-height: 30px;
+  height: 80px;
+  padding: 0 ;
+  border-bottom:thick dotted red;
+  margin: 0;
+  display: inline-block;
+  appearance: none;
+  cursor: pointer;
+  border: none;
+
+}
+
+
+.msgNum{
+	color: red;
+}
