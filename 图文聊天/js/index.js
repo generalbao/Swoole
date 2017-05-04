@@ -77,7 +77,7 @@ document.onkeydown=function(event){
  
 
        function register(data){
-        var ws = new WebSocket("ws://192.168.8.130:9503");
+        var ws = new WebSocket("ws://192.168.8.134:9503"); // 修改为自己服务器ip
           ws.onopen = function()
                {
                   // Web Socket 已连接上，使用 send() 方法发送数据

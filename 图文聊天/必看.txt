@@ -1,0 +1,4 @@
+先运行 php/index.php
+
+
+还有需要安装redis
