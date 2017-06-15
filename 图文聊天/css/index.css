@@ -99,3 +99,14 @@
 .msgNum{
 	color: red;
 }
+
+/*
+ * 
+ 我的头像样式
+ */
+#myhead{
+	width:70px;
+	height:70px; 
+	border-radius: 100%;
+}
+

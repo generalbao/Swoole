@@ -66,7 +66,13 @@ document.onkeydown=function(event){
               contentType : false,
               success : function(obj){
                console.log(obj);
-               alert('修改图片成功');
+               if(obj.res == 'yes'){
+            	   alert('修改图片成功');
+            	   $("#myhead").attr('src',"php/"+obj.data);
+               }else{
+            	   alert('修改图片失败');
+               }
+              
               },
               error :function(obj){
 
