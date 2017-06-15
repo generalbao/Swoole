@@ -223,6 +223,7 @@ document.onkeydown=function(event){
                   console.log(received_msg.data);
                   sessionStorage.setItem('myid',received_msg.data);
                   $("#myid").html(received_msg.data);
+                  $("#myhead").attr('src',"php/"+received_msg.myhead);
                   $("#myself").html('myid is '+ received_msg.data + ' my token is ' + sessionStorage.getItem("mytoken"));
                   break;
                

@@ -28,7 +28,7 @@ $ws->on('message', function ($ws, $frame) {
     // echo "Message: {$frame->data}\n";
     //客户端发来的信息
     //
-    var_dump($ws->connections);
+    // var_dump($ws->connections);
     $redis = new Redis();
     $redis->connect('127.0.0.1', 6379);
 
@@ -82,7 +82,7 @@ $ws->on('message', function ($ws, $frame) {
                              
             }
 
-            var_dump($onlineData);
+            // var_dump($onlineData);
     		$redis->hMset('token_'.$token,$tokenData);
     		$redis->expire('token_'.$token,60*60);
             
@@ -167,11 +167,12 @@ $ws->on('message', function ($ws, $frame) {
             case 'changeIdByToken':
             $userToken = $data['token']; 
 
-            echo 'before is is'.$redis->hget('token_'.$userToken,'userid');
+//             $redis->hget('token_'.$userToken,'userid');
+            $userimg = $redis->hget('token_'.$userToken,'img');
             $redis->hdel('token_'.$userToken,'userid');
             $redis->hset('token_'.$userToken,'userid',$frame->fd);
 
-            echo '--after is is'.$redis->hget('token_'.$userToken,'userid');
+            // echo '--after is is'.$redis->hget('token_'.$userToken,'userid');
             
             //$redis->lpush('userlist',$frame->fd);
             //$redis->set($frame->fd,$userToken);
@@ -179,6 +180,7 @@ $ws->on('message', function ($ws, $frame) {
             // $newUserId = $redis->hget('token_'.$userToken,'userid');
             $changeData = [
             'action'=>'changeIdByToken',
+                'myhead'=>$userimg,
             'data'=>$frame->fd          //这是新的userid
             ];
 
