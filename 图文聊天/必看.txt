@@ -1,4 +1,4 @@
 先运行 php/index.php
-
-
-还有需要安装redis
+服务器要开放9503端口,
+js/index.js 里面的url修改为自己的服务器地址
+还有需要安装redis,默认没有密码

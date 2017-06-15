@@ -5,6 +5,7 @@ var msgNum = 0;
 var mytoken = sessionStorage.getItem('mytoken');
 var myid = sessionStorage.getItem('myid');
 var isRegister = null;
+var url = "ws://192.168.28.133:9503"; //可以根据自己修改
 if(mytoken){
      isRegister = true;
     var data  = {"action":"changeIdByToken","token":mytoken};
@@ -77,7 +78,7 @@ document.onkeydown=function(event){
  
 
        function register(data){
-        var ws = new WebSocket("ws://192.168.8.134:9503"); // 修改为自己服务器ip
+        var ws = new WebSocket(url);
           ws.onopen = function()
                {
                   // Web Socket 已连接上，使用 send() 方法发送数据
